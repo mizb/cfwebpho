@@ -197,7 +197,7 @@
             document.getElementById('img01').src = url;
         }
 
-        function createPhotoContainer(url) {
+        async function createPhotoContainer(url) {
             let imgContainer = document.createElement('div');
             imgContainer.classList.add('img-container');
             let imgText = document.createElement('div');
@@ -205,7 +205,9 @@
             imgText.textContent = url;
             imgContainer.appendChild(imgText);
             let img = document.createElement('img');
-            img.src = url;
+            const compressedImageUrl = await compressImage(url);
+            img.src = compressedImageUrl;
+            //img.src = url;
             img.style.width = '100%';
             img.style.height = '100%';
 
@@ -235,7 +237,7 @@
             photoUrls = await response.json();
             photoWall.innerHTML = '';
     
-            updatePagination(itemsPerPage);
+           await updatePagination(itemsPerPage);
         }
         
         async function deletePhoto(photoUrl) {
@@ -297,30 +299,30 @@
         let currentPage = 1;
         const itemsPerPage = 15; // 5 columns * 3 rows = 15 items per page
  
-        function displayPhotos(startIndex, endIndex) {
+        async function displayPhotos(startIndex, endIndex) {
             photoWall.innerHTML = ''; // Clear existing photos before displaying new ones
             for (let i = startIndex; i < endIndex; i++) {
             let url = photoUrls[i];
             if (url) {
-                let imgContainer = createPhotoContainer(url);
+                let imgContainer = await createPhotoContainer(url);
                 photoWall.appendChild(imgContainer);
               }
              }
             }
 
 
-        function lazyLoadPhotos(pageNumber) {
+        async function lazyLoadPhotos(pageNumber) {
             currentPage = pageNumber; // 更新当前页码
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = currentPage * itemsPerPage;
-            displayPhotos(startIndex, endIndex);
+            await displayPhotos(startIndex, endIndex);
             document.querySelectorAll('.pagination-button').forEach(btn => btn.classList.remove('pagination-active'));
             document.querySelectorAll('.pagination-button')[currentPage - 1].classList.add('pagination-active'); // Highlight the current page button
         }
 
 
       
-    function updatePagination(photosPerPage) {
+    async function updatePagination(photosPerPage) {
         const totalPhotos = photoUrls.length; // Calculate total photos from photoUrls array
         const totalPages = Math.ceil(totalPhotos / photosPerPage);
         paginationContainer.innerHTML = ''; // Clear existing pagination buttons
@@ -340,8 +342,31 @@
             }(i));
             paginationContainer.appendChild(pageButton);
         };
-        lazyLoadPhotos(totalPages); // Call lazyLoadPhotos after updating pagination
+        await lazyLoadPhotos(totalPages); // Call lazyLoadPhotos after updating pagination
     }
+        
+    async function compressImage(url) {
+  try {
+    const response = await fetch(`https://chatyou-compressimg.hf.space/resize?q=${encodeURIComponent(url)}`);
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const imageUrl = await response.text(); // 直接获取文本响应
+
+    // 你可以在这里使用压缩后的图像 URL，例如在网页上显示图像
+    console.log('Compressed image URL:', imageUrl);
+    return imageUrl;
+  } catch (error) {
+    console.error('Error compressing image:', error);
+  }
+}
+
+    
+    // 示例调用
+    //compressImage('https://example.com/path/to/your/image.jpg');
+
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
     <script src="album-management.js"></script>
