@@ -346,22 +346,23 @@
     }
         
     async function compressImage(url) {
-  try {
-    const response = await fetch(`https://nagose-compressimg.hf.space/resize?q=${encodeURIComponent(url)}`);
+      try {
+        const response = await fetch(`https://nagose-compresizeimg.hf.space/resize?q=${encodeURIComponent(url)}`);
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const imageUrl = await response.text(); // 直接获取文本响应
+
+        // 你可以在这里使用压缩后的图像 URL，例如在网页上显示图像
+        console.log('Compressed image URL:', imageUrl);
+        //return imageUrl;
+          return `data:image/jpeg;base64,${imageUrl}`; // 返回带有前缀的 Base64 数据
+      } catch (error) {
+        console.error('Error compressing image:', error);
+      }
     }
-
-    const imageUrl = await response.text(); // 直接获取文本响应
-
-    // 你可以在这里使用压缩后的图像 URL，例如在网页上显示图像
-    console.log('Compressed image URL:', imageUrl);
-    return imageUrl;
-  } catch (error) {
-    console.error('Error compressing image:', error);
-  }
-}
 
     
     // 示例调用
