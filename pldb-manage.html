@@ -205,7 +205,7 @@
             imgText.textContent = url;
             imgContainer.appendChild(imgText);
             let img = document.createElement('img');
-            const compressedImageUrl = await compressImage(url);
+            const compressedImageUrl = await compressImage(url);//压缩预览图片
             img.src = compressedImageUrl;
             //img.src = url;
             img.style.width = '100%';
