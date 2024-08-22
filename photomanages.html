@@ -395,13 +395,17 @@
           },
           deep: true
         },
-        currentPage() {
-          this.handlePageChange();
+      filteredTableData(newData) {
+          const totalPages = Math.ceil(newData.length / this.pageSize);
+          this.currentPage = totalPages;
+        },
+      currentPage(newData) {
+          this.handlePageChange(newData);
           },
-         search() {
-          this.updatePaginatedTableData(); // 当搜索关键字变化时，更新分页数据
-          this.currentPage = 1; // 重置当前页为第一页
-          }
+    //  search() {
+    //      this.updatePaginatedTableData(); // 当搜索关键字变化时，更新分页数据
+    //      this.currentPage = 1; // 重置当前页为第一页
+     //     }
       },
       methods: {
         refreshDashboard() {
