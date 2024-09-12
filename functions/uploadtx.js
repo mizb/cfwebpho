@@ -7,6 +7,10 @@ export async function onRequest(context) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Max-Age': '86400', // 24 hours
     };
+    const responseHeaders = {
+    ...corsHeaders,
+    'Content-Type': 'application/json'
+};
 
     if (request.method === 'OPTIONS') {
         return new Response(null, {
@@ -39,10 +43,10 @@ export async function onRequest(context) {
       // 返回响应
       if(resurl){
         const responseData = [{ src: resurl }]; // 修改为 JSON 格式
-        return new Response(responseData, {
+        return new Response(JSON.stringify(responseData), {
             status: response.status,
             headers: {
-                ...corsHeaders,
+                ...responseHeaders,
                 ...response.headers,
             },
         });
