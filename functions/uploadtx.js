@@ -39,7 +39,7 @@ export async function onRequest(context) {
       // 返回响应
       if(resurl){
         const responseData = [{ src: resurl }]; // 修改为 JSON 格式
-        return new Response(resurl, {
+        return new Response(responseData, {
             status: response.status,
             headers: {
                 ...corsHeaders,
