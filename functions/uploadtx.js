@@ -55,6 +55,9 @@ export async function onRequest(context) {
       const responseD = [{ src: 'https://github.com/SokWith' }]; // 修改为 JSON 格式
       return new Response(JSON.stringify(responseD), {
         status: 500,
-        headers: ...responseHeaders,
+        headers: {
+                ...responseHeaders,
+                ...response.headers,
+            },
       });    
 }
