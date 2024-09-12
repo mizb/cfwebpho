@@ -54,7 +54,7 @@ export async function onRequest(context) {
 
       const responseD = [{ src: 'https://github.com/SokWith' }]; // 修改为 JSON 格式
       return new Response(JSON.stringify(responseD), {
-        status: 200,
+        status: 200,  //为了批量文件上传不至于中断，特意改成正常返回200，然后可以在图册中统一删除
         headers: {
                 ...responseHeaders,
                 ...response.headers,
