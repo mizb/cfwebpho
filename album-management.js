@@ -68,11 +68,11 @@ function uploadImageAndGetFullUrl(uploadEndpoint, hostUrl, file) {
 
 // 定义host URL和上传端点
 //const hostUrl = 'https://imghost.wook.eu.org';
-const hostUrl = 'https://' + window.location.hostname;
-const uploadEndpoint = '/upload';
+//const hostUrl = 'https://' + window.location.hostname;
+//const uploadEndpoint = '/upload';
 //由于telegraph已关闭，使用微信开发平台
-//const hostUrl = ''
-//const uploadEndpoint = '/uploadtx';
+const hostUrl = ''
+const uploadEndpoint = '/uploadtx';
 
 // 在文档加载完成后添加事件监听器
 document.addEventListener('DOMContentLoaded', function() {
