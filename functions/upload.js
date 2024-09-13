@@ -30,10 +30,15 @@ export async function onRequest(context) {
     });
 
     // 返回上传结果，并添加CORS头部
-    return new Response(await uploadResponse.text(), {
+    const jsonResponse = await uploadResponse.json();
+    const resurl = jsonResponse.src;
+      // 返回响应
+        const responseData = [{ src: resurl }]; // 修改为 JSON 格式
+        return new Response(JSON.stringify(responseData), {
+    // return new Response(await uploadResponse.text(), {
       headers: {
         ...corsHeaders,
-        'content-type': 'text/plain'
+        'content-type': 'application/json'
       }
     });
   } else {
