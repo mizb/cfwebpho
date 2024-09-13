@@ -22,7 +22,9 @@ export async function onRequest(context) {
     const file = formData.get('file');
     
     // 使用提供的API地址和方法上传文件https://telegra.ph
-    const uploadResponse = await fetch('https://telegra.ph/upload', {
+    //const uploadurl = 'https://telegra.ph/upload';
+    const uploadurl = 'https://telegra.ph/upload?source=bugtracker';//测试新地址
+    const uploadResponse = await fetch(uploadurl, {
       method: 'POST',
       body: formData
     });
