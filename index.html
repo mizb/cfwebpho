@@ -6,17 +6,17 @@
     <title>网络图片收集图床</title>
     <style>
         body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; /* 修改为flex-start */
-        align-items: center;
-        background-color: #f7f7f7;
-        padding-top: 10%; /* 添加顶部的padding */
-    }
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* 修改为flex-start */
+            align-items: center;
+            background-color: #f7f7f7;
+            padding-top: 10%; /* 添加顶部的padding */
+        }
         h1 {
             text-align: center;
             margin-bottom: 20px;
@@ -56,7 +56,14 @@
             input[type="text"] {
                 width: 100%;
             }
-        }    </style>
+        }
+        iframe {
+            width: 80%;
+            height: 100vh;
+            border: none;
+            border-radius: 15px; /* 添加圆角 */
+        }
+    </style>
 </head>
 <body>
     <div>
@@ -67,14 +74,14 @@
             <input type="submit" value="进入相册">
         </form>
     </div>
-     <script>
+    <script>
         document.getElementById('welcomeForm').onsubmit = function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             window.location.href = `/postalb.html?username=${username}`;
         };
-     </script>
-   <!-- 在这里嵌入iframe -->
-    <iframe src="./listdbwall.html" style="width:80%; height:100vh; border:none;"></iframe>
-    </body>
+    </script>
+    <!-- 在这里嵌入iframe -->
+    <iframe src="./listdbwall.html"></iframe>
+</body>
 </html>
